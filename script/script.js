@@ -40,13 +40,13 @@ function checkWinner() {
             celda[a].textContent === celda[b].textContent && 
             celda[a].textContent === celda[c].textContent) {
             alert(`${actual} ha ganado!`);
-            setTimeout(resetGame, 100);
+            setTimeout(resetGame, 900);
         }
     });
 
     if ([...celda].every(celda => celda.textContent !== '')) {
         alert('Es un empate!');
-        setTimeout(resetGame, 100);
+        setTimeout(resetGame, 900);
     }
 }
 
