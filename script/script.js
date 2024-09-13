@@ -1,4 +1,4 @@
-alert ('¡Bienvenido a nuestra página web! Estás a punto de jugar a Ceros y Cruces. Este juego es de jugador contra jugador. ¡Espero que te guste!');
+alert('¡Bienvenido a nuestra página web! Estás a punto de jugar a Ceros y Cruces. Este juego es de jugador contra jugador. ¡Espero que te guste!');
 
 const celda = document.querySelectorAll('.celda');
 let turn = 'X';
@@ -12,14 +12,7 @@ celda.forEach(celda => {
             celda.textContent = turn;
             setTimeout(() => {
                 checkWinner();
-            }, 50); 
-            if (turn === 'X') {
-                turn = '0';
-                actual = jugador2;
-            } else {
-                turn = 'X';
-                actual = jugador1;
-            }
+            }, 50);
         }
     });
 });
@@ -36,28 +29,50 @@ function checkWinner() {
         [2, 4, 6]
     ];
 
+    let winnerFound = false;
+
     winPatterns.forEach(pattern => {
         const [a, b, c] = pattern;
         if (celda[a].textContent && 
             celda[a].textContent === celda[b].textContent && 
             celda[a].textContent === celda[c].textContent) { 
+            winnerFound = true;
             setTimeout(() => {
                 alert(`${actual} ha ganado!`);
                 resetGame();
-            }, 100); 
+            }, 100);
         }
     });
 
-    if ([...celda].every(celda => celda.textContent !== '')) {
-        setTimeout(() => {
-            alert('Es un empate!');
-            resetGame();
-        }, 100);
+    if (!winnerFound) {
+        let isBoardFull = true;
+        celda.forEach(celda => {
+            if (celda.textContent === '') {
+                isBoardFull = false;
+            }
+        });
+    
+        if (isBoardFull) {
+            setTimeout(() => {
+                alert('Es un empate!');
+                resetGame();
+            }, 100);
+        }
+    }
+
+    if (!winnerFound) {
+        if (turn === 'X') {
+            turn = '0';
+            actual = jugador2;
+        } else {
+            turn = 'X';
+            actual = jugador1;
+        }
     }
 }
 
 function resetGame() {
-    celda.forEach(celda => celda.textContent = ''); 
+    celda.forEach(celda => celda.textContent = '');
     turn = 'X';
     actual = jugador1;
 }
