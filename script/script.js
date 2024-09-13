@@ -8,9 +8,11 @@ let actual = jugador1;
 
 celda.forEach(celda => {
     celda.addEventListener('click', () => {
-        if (celda.textContent === '') { 
+        if (celda.textContent === '') {
             celda.textContent = turn;
-            checkWinner();
+            setTimeout(() => {
+                checkWinner();
+            }, 50); 
             if (turn === 'X') {
                 turn = '0';
                 actual = jugador2;
@@ -38,15 +40,19 @@ function checkWinner() {
         const [a, b, c] = pattern;
         if (celda[a].textContent && 
             celda[a].textContent === celda[b].textContent && 
-            celda[a].textContent === celda[c].textContent) {
-            alert(`${actual} ha ganado!`);
-            setTimeout(resetGame, 900);
+            celda[a].textContent === celda[c].textContent) { 
+            setTimeout(() => {
+                alert(`${actual} ha ganado!`);
+                resetGame();
+            }, 100); 
         }
     });
 
     if ([...celda].every(celda => celda.textContent !== '')) {
-        alert('Es un empate!');
-        setTimeout(resetGame, 900);
+        setTimeout(() => {
+            alert('Es un empate!');
+            resetGame();
+        }, 100);
     }
 }
 
